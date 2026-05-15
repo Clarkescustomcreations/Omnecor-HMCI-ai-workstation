@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import ReactFlow, {
   Node,
   Edge,
@@ -25,8 +25,8 @@ interface NeuralGraphViewProps {
  * NeuralGraphView Component
  * 
  * Renders a React Flow graph visualization of the neural network.
- * Displays nodes (folders/files) and edges (connections) in an
- * Obsidian-style spatial layout.
+ * Displays nodes (folders/files) and edges (connections) in a
+ * spatial, interactive layout with pan, zoom, and minimap controls.
  */
 export default function NeuralGraphView({
   network,

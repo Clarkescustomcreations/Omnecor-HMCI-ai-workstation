@@ -26,7 +26,7 @@ interface CortexDashboardLayoutProps {
  * 
  * Provides a dark-themed, refined sidebar navigation with the following sections:
  * - Chat: AI conversation interface
- * - Neural Brain Map: Obsidian-style project organization
+ * - Neural Brain Map: Spatial project organization with node-based visualization
  * - Model Hub: Local and API model management
  * - Project Pipelines: Multi-step workflow orchestration
  * - Integrations: Third-party app connections

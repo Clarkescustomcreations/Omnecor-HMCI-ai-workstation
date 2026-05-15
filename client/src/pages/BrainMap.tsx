@@ -11,7 +11,7 @@ import { convertFileSystemToNeuralNetwork, generateMockFileSystem } from "@/lib/
  * Neural Brain Map Page
  * 
  * Features:
- * - Obsidian-style graph view with nodes and edges
+ * - Spatial graph view with nodes and edges
  * - Folder-to-node conversion
  * - File-to-branch rendering
  * - Toggle between graph and folder-tree views
@@ -43,7 +43,7 @@ export default function BrainMap() {
               <div>
                 <h1 className="text-xl font-bold">Neural Brain Map</h1>
                 <p className="text-sm text-muted-foreground">
-                  Spatial project organization with Obsidian-style graph view
+                  Spatial project organization with interactive node-based visualization
                 </p>
               </div>
             </div>

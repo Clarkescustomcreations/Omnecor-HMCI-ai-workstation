@@ -31,7 +31,7 @@ export default function Dashboard() {
     },
     {
       title: "Neural Brain Map",
-      description: "Obsidian-style project organization with spatial and hierarchical views",
+      description: "Spatial node-based project organization with hierarchical and graph views",
       icon: Brain,
       href: "/brain-map",
       badge: "In Progress",

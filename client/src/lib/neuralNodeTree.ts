@@ -2,7 +2,7 @@
  * Neural Node-Tree Data Structures and Utilities
  * 
  * This module provides the core data structures for converting file system
- * hierarchies into an Obsidian-style graph representation where:
+ * hierarchies into a spatial graph representation where:
  * - Folders become nodes
  * - Files become branches (edges) connected to folder nodes
  * - Each node can have metadata, connections, and visual properties
@@ -185,7 +185,7 @@ export function convertFileSystemToNeuralNetwork(
 
 /**
  * Calculate optimal positions for nodes using force-directed layout
- * This creates a more organic, Obsidian-like spatial arrangement
+ * This creates a more organic, spatially-distributed arrangement
  */
 export function calculateNodePositions(
   nodes: NeuralNode[],

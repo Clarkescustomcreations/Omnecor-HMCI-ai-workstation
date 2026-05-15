@@ -366,7 +366,7 @@ export function createMockGitHubIntegration(): GitHubIntegration {
         id: 2,
         name: "neural-map-visualizer",
         url: "https://github.com/cortex/neural-map-visualizer",
-        description: "Obsidian-style neural network visualization",
+        description: "Spatial neural network visualization and graph management",
         isPrivate: true,
         lastPushed: new Date(Date.now() - 86400000),
       },

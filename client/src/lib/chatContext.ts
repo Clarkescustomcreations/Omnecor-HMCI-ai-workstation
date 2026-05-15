@@ -290,7 +290,7 @@ export function createMockConversation(): ConversationContext {
     [
       createChatMessage(
         "user",
-        "Help me implement the Neural Node-Tree UI for CORTEX. I want an Obsidian-style graph visualization."
+        "Help me implement the Neural Node-Tree UI for CORTEX. I want a spatial graph visualization with nodes and branches."
       ),
       createChatMessage(
         "assistant",
