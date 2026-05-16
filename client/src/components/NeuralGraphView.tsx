@@ -1,4 +1,6 @@
-import { useMemo, useCallback } from "react";
+'use client';
+
+import React, { useMemo, useCallback, useEffect } from 'react';
 import ReactFlow, {
   Node,
   Edge,
@@ -9,9 +11,9 @@ import ReactFlow, {
   MiniMap,
   Connection,
   addEdge,
-} from "reactflow";
-import "reactflow/dist/style.css";
-import { NeuralNetwork, NeuralNode, NeuralEdge } from "@/lib/neuralNodeTree";
+} from 'reactflow';
+import 'reactflow/dist/style.css';
+import { NeuralNetwork, NeuralNode, NeuralEdge } from '@/lib/neuralNodeTree';
 
 interface NeuralGraphViewProps {
   network: NeuralNetwork;
@@ -35,7 +37,37 @@ export default function NeuralGraphView({
   onEdgeClick,
   readOnly = false,
 }: NeuralGraphViewProps) {
-  // Convert neural nodes to React Flow nodes
+  // Suppress ResizeObserver errors (known React Flow issue)
+  useEffect(() => {
+    const handleError = (event: ErrorEvent) => {
+      if (event.message?.includes('ResizeObserver loop completed')) {
+        event.preventDefault();
+      }
+    };
+
+    // Also suppress via console.error override
+    const originalError = console.error;
+    const errorHandler = (...args: unknown[]) => {
+      if (
+        args[0] &&
+        typeof args[0] === 'string' &&
+        args[0].includes('ResizeObserver loop completed')
+      ) {
+        return; // Silently ignore this specific error
+      }
+      originalError.call(console, ...args);
+    };
+
+    window.addEventListener('error', handleError);
+    console.error = errorHandler as any;
+
+    return () => {
+      window.removeEventListener('error', handleError);
+      console.error = originalError;
+    };
+  }, []);
+
+  // Convert neural nodes to React Flow nodes with stable dimensions
   const initialNodes: Node[] = useMemo(
     () =>
       network.nodes.map((neuralNode) => ({
@@ -48,14 +80,20 @@ export default function NeuralGraphView({
         position: neuralNode.position,
         style: {
           ...neuralNode.style,
-          padding: "12px 16px",
-          borderRadius: "8px",
-          fontSize: "12px",
-          fontWeight: neuralNode.type === "project" ? "bold" : "500",
-          minWidth: "100px",
-          textAlign: "center",
-          cursor: "pointer",
-          transition: "all 0.2s ease",
+          padding: '12px 16px',
+          borderRadius: '8px',
+          fontSize: '12px',
+          fontWeight: neuralNode.type === 'project' ? 'bold' : '500',
+          minWidth: '100px',
+          width: 'auto',
+          height: 'auto',
+          textAlign: 'center',
+          cursor: 'pointer',
+          transition: 'all 0.2s ease',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          whiteSpace: 'nowrap',
         },
       })),
     [network.nodes]
@@ -68,14 +106,14 @@ export default function NeuralGraphView({
         id: neuralEdge.id,
         source: neuralEdge.source,
         target: neuralEdge.target,
-        type: "smoothstep",
-        animated: neuralEdge.type === "folder-connection",
+        type: 'smoothstep',
+        animated: neuralEdge.type === 'folder-connection',
         style: {
           stroke:
-            neuralEdge.type === "folder-connection"
-              ? "oklch(0.65 0.15 260 / 0.6)"
-              : "oklch(0.65 0.15 260 / 0.3)",
-          strokeWidth: neuralEdge.type === "folder-connection" ? 2 : 1,
+            neuralEdge.type === 'folder-connection'
+              ? 'oklch(0.65 0.15 260 / 0.6)'
+              : 'oklch(0.65 0.15 260 / 0.3)',
+          strokeWidth: neuralEdge.type === 'folder-connection' ? 2 : 1,
         },
         label: neuralEdge.data?.label,
       })),
@@ -116,7 +154,14 @@ export default function NeuralGraphView({
   );
 
   return (
-    <div className="w-full h-full bg-background rounded-lg overflow-hidden border border-border">
+    <div
+      className="w-full h-full bg-background rounded-lg overflow-hidden border border-border"
+      style={{
+        minHeight: '400px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -128,13 +173,14 @@ export default function NeuralGraphView({
         onEdgeClick={handleEdgeClick}
         fitView
         attributionPosition="bottom-left"
+        style={{ flex: 1 }}
       >
         <Background color="oklch(0.20 0.01 240)" gap={16} size={0.5} />
         <Controls />
         <MiniMap
           style={{
-            backgroundColor: "oklch(0.16 0.01 240)",
-            border: "1px solid oklch(0.22 0.01 240)",
+            backgroundColor: 'oklch(0.16 0.01 240)',
+            border: '1px solid oklch(0.22 0.01 240)',
           }}
           maskColor="oklch(0.65 0.15 260 / 0.3)"
         />
