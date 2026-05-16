@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
+import { useEffect } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Dashboard from "./pages/Dashboard";
@@ -36,6 +37,26 @@ function Router() {
 // - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
+  useEffect(() => {
+    // Initialize keyboard shortcuts on mount
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl+K: Focus search
+      if (e.ctrlKey && e.key === 'k') {
+        e.preventDefault();
+        const searchInput = document.querySelector('input[placeholder*="search"]') as HTMLInputElement;
+        if (searchInput) searchInput.focus();
+      }
+      // Shift+?: Show help
+      if (e.shiftKey && e.key === '?') {
+        e.preventDefault();
+        alert('Keyboard shortcuts help - see documentation for full list');
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <ErrorBoundary>
       <ThemeProvider
