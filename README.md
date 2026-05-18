@@ -1,12 +1,46 @@
-# CORTEX: The Ultimate All-in-One AI Workbench
+# 👁️ Perception AI Studio
+> **Build Your Reality.**
 
-**CORTEX** is a comprehensive, local-first AI workbench for Linux that combines the power of multiple AI models, project management, and specialized tools into a single, elegant interface.
+Stop bouncing between fragmented tabs, managing a dozen different subscriptions, and losing your context. 
 
-## 🎯 Overview
+**Perception AI Studio** is the world's first **Human-Machine Collaboration Interface (HMCI)**. Designed as the central nervous system for your entire digital and physical workflow, Perception unites software development, business automation, media generation, and hardware engineering under one unified, intelligent workspace.
+
+## ✨ Core Features
+
+### 🚦 The 1.5B Valet Router (The Brain)
+At the heart of Perception is a lightning-fast, locally hosted 1.5B parameter AI Valet. Operating entirely on your system's RAM, the Valet acts as the ultimate traffic cop. It analyzes your prompts in real-time and routes them to the perfect model for the job—sending coding tasks to Claude, massive documents to Gemini, and real-time research to Grok.
+
+### 🔗 Unified Session Manager (Bring Your Own Account)
+Why pay for APIs when you already pay for web subscriptions? Perception securely connects to your existing web accounts (ChatGPT Plus, Claude Pro, Grok, etc.). Our headless session manager allows you to use your web-tier access directly inside the Studio, drastically reducing your API overhead. 
+
+### 💳 The Agentic Wallet
+Never wake up to a massive API bill again. Assign a strict prepaid budget to any project. The Valet tracks every fraction of a cent, generates locked virtual credit cards for ephemeral cloud compute (like RunPod), and automatically downgrades to local models if the budget runs low.
+
+### 🧠 Personalized Memory Context Maps
+Standard chat logs are dead. Perception visualizes your workflow by generating dynamic, interactive neural networks for your data. Build custom, isolated "brains" for every individual project. Watch in real-time as your AI agents map out files, connect research documents, and build semantic memory contexts that you can visually navigate.
+
+### 🤖 The Multi-Modal Workforce
+Spin up specialized autonomous agents, assign them skills, and let them collaborate:
+- **Software & Web:** Agents read your local codebase, write applications, and deploy via Docker.
+- **Media Studio:** Node-based generation for images (ComfyUI), video, and voice cloning (XTTS/RVC).
+- **Hardware & 3D:** Bridge the gap to the physical world with integrated Blender 3D modeling and KiCad PCB routing.
+
+## ⚙️ Compute-Agnostic Execution
+Perception adapts to your hardware, offering three distinct execution environments:
+
+1. **The Scrapper:** Local Valet manages the UI; heavy lifting is routed through your Unified Session Manager web accounts.
+2. **The Big Spender:** Utilizes paid API keys and autonomously rents ephemeral cloud GPUs for heavy training, destroying the instance the second it finishes.
+3. **The Sovereign:** 100% local, offline execution. From custom LoRA training to local vector databases, your data never leaves your high-end rig.
+
+---
+
+## 🎯 Technical Overview
+
+Perception AI Studio (codenamed **CORTEX**) is a comprehensive, local-first AI workbench for Linux that combines the power of multiple AI models, project management, and specialized tools into a single, elegant interface.
 
 CORTEX is designed to be the "Frontal Lobe" of your AI workflow—a unified orchestrator that routes your ideas through any available AI model or tool. Whether you're working with local models for privacy, cloud APIs for power, or specialized tools like Blender and KiCad, CORTEX brings everything together seamlessly.
 
-### Key Features
+### Key Technical Features
 
 - **Unified AI Interface** - Chat with any AI model (local or cloud)
 - **Spatial Knowledge Organization** - Neural Brain Map for project visualization
@@ -49,6 +83,7 @@ Open `http://localhost:3000` in your browser.
 - **[User Guide](./USER_GUIDE.md)** - Complete feature documentation
 - **[Troubleshooting Guide](./TROUBLESHOOTING.md)** - Solutions to common issues
 - **[Help & Onboarding](./HELP.md)** - Quick start and FAQ
+- **[Project Status Report](./CORTEX_PROJECT_REPORT.md)** - Development progress and roadmap
 
 ## 🏗️ Architecture
 
@@ -66,8 +101,8 @@ Open `http://localhost:3000` in your browser.
 cortex-ai-workstation/
 ├── client/                          # React frontend
 │   ├── src/
-│   │   ├── components/             # Reusable UI components
-│   │   ├── pages/                  # Page components
+│   │   ├── components/             # Reusable UI components (71 components)
+│   │   ├── pages/                  # Page components (10 pages)
 │   │   ├── lib/                    # Utilities and managers
 │   │   ├── contexts/               # React contexts
 │   │   └── App.tsx                 # Main app component
@@ -78,12 +113,18 @@ cortex-ai-workstation/
 │   └── _core/                      # Framework plumbing
 ├── drizzle/                        # Database schema
 ├── shared/                         # Shared types and constants
-└── docs/                           # Documentation
+├── docs/                           # Documentation
+└── cortex_references/              # Reference architecture code
+    ├── media_generation/           # ComfyUI patterns
+    ├── automation/                 # n8n patterns
+    ├── agents/                     # crewAI patterns
+    ├── model_training/             # Unsloth patterns
+    └── coding/                     # Continue patterns
 ```
 
 ## 🎨 Design System
 
-CORTEX uses a carefully crafted dark-themed design system based on OKLCH colors:
+Perception uses a carefully crafted dark-themed design system based on OKLCH colors:
 
 - **Background** - Deep slate (oklch(0.15 0 0))
 - **Foreground** - Light gray (oklch(0.95 0 0))
@@ -100,18 +141,21 @@ All components follow this palette for consistency and visual coherence.
 - Context transparency indicator
 - Visual context map for file management
 - Token usage tracking
+- Action hash loop detection (prevents infinite loops)
 
 ### Neural Brain Map
 - Spatial graph visualization (React Flow)
 - Hierarchical tree view
 - File type indicators
 - Interactive node selection
+- Project-specific neural networks
 
 ### Model Hub
 - Local model discovery (Ollama, Llama.cpp)
 - Cloud provider integration (OpenAI, Anthropic, Gemini, Groq)
 - Model configuration and switching
 - Health status indicators
+- Budget tracking and cost estimation
 
 ### Specialized Modules
 - **Custom LLM Builder** - LoRA/QLoRA fine-tuning with visualization
@@ -129,6 +173,7 @@ All components follow this palette for consistency and visual coherence.
 - Security and privacy controls
 - Performance tuning
 - Data retention policies
+- Application preferences
 
 ## 🔒 Security & Privacy
 
@@ -174,7 +219,7 @@ All components follow this palette for consistency and visual coherence.
 
 ## 🧪 Testing
 
-CORTEX includes comprehensive test coverage:
+Perception includes comprehensive test coverage:
 
 ```bash
 # Run all tests
@@ -244,6 +289,8 @@ We welcome contributions! Please:
 - Model Hub with multi-provider support
 - Basic integrations
 - Settings and preferences
+- Comprehensive documentation
+- 177 passing tests
 
 ### Phase 2 (Planned)
 - Real backend integration
@@ -260,11 +307,20 @@ We welcome contributions! Please:
 - Advanced analytics
 - Enterprise features
 
+### Phase 4-7 (Expansion Modules)
+- Voice processing (Faster-Whisper, Coqui TTS, RVC)
+- Vector database integration (ChromaDB)
+- Web scraping and knowledge ingestion (Firecrawl)
+- Deployment and hardware integration (Docker, Esptool)
+
+See [CORTEX_PROJECT_REPORT.md](./CORTEX_PROJECT_REPORT.md) for detailed implementation timeline.
+
 ## 🐛 Known Issues
 
 - ResizeObserver warnings on Brain Map (non-critical, visual only)
 - Mock data for local model discovery (real Ollama integration coming)
 - Settings not persisted to database (localStorage only)
+- All AI integrations currently use simulated responses (backend integration pending)
 
 See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for solutions.
 
@@ -272,16 +328,16 @@ See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for solutions.
 
 - **Documentation** - See `/docs` directory
 - **GitHub Issues** - Report bugs or request features
-- **Email** - support@cortex.ai
+- **Email** - support@perception.ai
 - **Discord** - Join our community server
 
 ## 📄 License
 
-CORTEX is licensed under the MIT License. See [LICENSE](./LICENSE) file for details.
+Perception AI Studio is licensed under the MIT License. See [LICENSE](./LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
-CORTEX builds on the shoulders of giants:
+Perception builds on the shoulders of giants:
 
 - **React** - UI framework
 - **shadcn/ui** - Component library
@@ -290,10 +346,11 @@ CORTEX builds on the shoulders of giants:
 - **tRPC** - Type-safe APIs
 - **Drizzle ORM** - Database ORM
 - **Vitest** - Testing framework
+- **Reference Projects** - ComfyUI, n8n, crewAI, Unsloth, Continue, Faster-Whisper, Coqui TTS, RVC, Firecrawl, ChromaDB, Docker SDK, Esptool
 
 ## 🚀 Getting Started
 
-1. **[Install CORTEX](./INSTALLATION.md)** - Follow the installation guide
+1. **[Install Perception](./INSTALLATION.md)** - Follow the installation guide
 2. **[Read User Guide](./USER_GUIDE.md)** - Learn all features
 3. **[Configure Settings](./USER_GUIDE.md#settings--preferences)** - Customize for your workflow
 4. **[Start Creating](./HELP.md#quick-start-5-minutes)** - Begin your AI journey
@@ -302,4 +359,6 @@ CORTEX builds on the shoulders of giants:
 
 **Built with ❤️ for the AI community**
 
-CORTEX: Where your ideas meet AI. 🧠✨
+Perception AI Studio: Where your ideas meet AI. 🧠✨
+
+*Stop managing tools. Start building reality.*
