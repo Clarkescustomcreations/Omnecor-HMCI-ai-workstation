@@ -249,7 +249,7 @@ export function getLoopStatistics(history: ActionRecord[]): {
 export const mockActionHistory: ActionRecord[] = [
   createActionRecord(
     "search",
-    { query: "CORTEX AI workstation", limit: 10 },
+    { query: "Omnecor AI workstation", limit: 10 },
     { context: "initial", conversationId: "conv_123" },
     1
   ),
@@ -267,19 +267,19 @@ export const mockActionHistory: ActionRecord[] = [
   ),
   createActionRecord(
     "search",
-    { query: "CORTEX AI workstation", limit: 10 },
+    { query: "Omnecor AI workstation", limit: 10 },
     { context: "initial", conversationId: "conv_123" },
     4
   ),
   createActionRecord(
     "search",
-    { query: "CORTEX AI workstation", limit: 10 },
+    { query: "Omnecor AI workstation", limit: 10 },
     { context: "initial", conversationId: "conv_123" },
     5
   ),
   createActionRecord(
     "search",
-    { query: "CORTEX AI workstation", limit: 10 },
+    { query: "Omnecor AI workstation", limit: 10 },
     { context: "initial", conversationId: "conv_123" },
     6
   ),

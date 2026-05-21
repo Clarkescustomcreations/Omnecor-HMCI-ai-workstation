@@ -243,7 +243,7 @@ export const mockContextFiles: ContextFile[] = [
     tokens: 512,
     included: true,
     lastModified: new Date(Date.now() - 3600000),
-    preview: "// CORTEX main entry point\nexport function initialize() { ... }",
+    preview: "// Omnecor main entry point\nexport function initialize() { ... }",
   },
   {
     id: "file_2",
@@ -265,7 +265,7 @@ export const mockContextFiles: ContextFile[] = [
     tokens: 1024,
     included: false,
     lastModified: new Date(Date.now() - 86400000),
-    preview: "# CORTEX\n\nThe Ultimate All-in-One AI Workstation...",
+    preview: "# Omnecor\n\nThe Ultimate All-in-One AI Workstation...",
   },
   {
     id: "file_4",
@@ -285,12 +285,12 @@ export const mockContextFiles: ContextFile[] = [
  */
 export function createMockConversation(): ConversationContext {
   const conversation = createConversation(
-    "CORTEX Development Discussion",
+    "Omnecor Development Discussion",
     "gpt-4",
     [
       createChatMessage(
         "user",
-        "Help me implement the Neural Node-Tree UI for CORTEX. I want a spatial graph visualization with nodes and branches."
+        "Help me implement the Neural Node-Tree UI for Omnecor. I want a spatial graph visualization with nodes and branches."
       ),
       createChatMessage(
         "assistant",

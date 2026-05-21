@@ -154,16 +154,16 @@ describe("Settings Management", () => {
   describe("Privacy Settings", () => {
     it("should enable cloud sync", () => {
       const settings = getDefaultSettings();
-      const updated = enableCloudSync(settings, "google-drive", "/CORTEX Backup");
+      const updated = enableCloudSync(settings, "google-drive", "/Omnecor Backup");
 
       expect(updated.privacy.cloudSyncEnabled).toBe(true);
       expect(updated.privacy.cloudSyncProvider).toBe("google-drive");
-      expect(updated.privacy.cloudSyncFolder).toBe("/CORTEX Backup");
+      expect(updated.privacy.cloudSyncFolder).toBe("/Omnecor Backup");
     });
 
     it("should disable cloud sync", () => {
       let settings = getDefaultSettings();
-      settings = enableCloudSync(settings, "google-drive", "/CORTEX Backup");
+      settings = enableCloudSync(settings, "google-drive", "/Omnecor Backup");
 
       const updated = disableCloudSync(settings);
 

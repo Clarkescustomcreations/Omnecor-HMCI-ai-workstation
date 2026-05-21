@@ -99,7 +99,7 @@ export default function SettingsPanel({ className }: SettingsPanelProps) {
           <Card>
             <CardHeader>
               <CardTitle className="text-sm">Appearance</CardTitle>
-              <CardDescription>Customize how CORTEX looks and feels</CardDescription>
+              <CardDescription>Customize how Omnecor looks and feels</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">

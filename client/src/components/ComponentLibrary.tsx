@@ -1,5 +1,5 @@
 /**
- * CORTEX Component Library
+ * Omnecor Component Library
  * 
  * A comprehensive collection of reusable, accessible, and consistently-styled
  * components built on shadcn/ui and Tailwind CSS. All components follow the

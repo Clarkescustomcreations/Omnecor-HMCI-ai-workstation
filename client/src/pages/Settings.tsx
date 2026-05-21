@@ -1,4 +1,4 @@
-import CortexDashboardLayout from "@/components/CortexDashboardLayout";
+import OmnecorDashboardLayout from "@/components/CortexDashboardLayout";
 import SettingsPanel from "@/components/SettingsPanel";
 import { Settings } from "lucide-react";
 
@@ -14,7 +14,7 @@ import { Settings } from "lucide-react";
  */
 export default function SettingsPage() {
   return (
-    <CortexDashboardLayout>
+    <OmnecorDashboardLayout>
       <div className="h-full flex flex-col bg-background">
         <div className="border-b border-border bg-card px-6 py-4">
           <div className="flex items-center gap-3">
@@ -22,7 +22,7 @@ export default function SettingsPage() {
             <div>
               <h1 className="text-xl font-bold">Settings</h1>
               <p className="text-sm text-muted-foreground">
-                Configuration and preferences for CORTEX
+                Configuration and preferences for Omnecor
               </p>
             </div>
           </div>
@@ -32,6 +32,6 @@ export default function SettingsPage() {
           <SettingsPanel />
         </div>
       </div>
-    </CortexDashboardLayout>
+    </OmnecorDashboardLayout>
   );
 }

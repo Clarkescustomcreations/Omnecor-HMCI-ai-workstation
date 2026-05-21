@@ -1,4 +1,4 @@
-import CortexDashboardLayout from "@/components/CortexDashboardLayout";
+import OmnecorDashboardLayout from "@/components/CortexDashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,10 +15,10 @@ import {
 import { Link } from "wouter";
 
 /**
- * CORTEX Dashboard Home Page
+ * Omnecor Dashboard Home Page
  * 
  * Displays an overview of the system with quick-access cards for each major feature.
- * Provides a refined, elegant introduction to the CORTEX workbench.
+ * Provides a refined, elegant introduction to the Omnecor workbench.
  */
 export default function Dashboard() {
   const features = [
@@ -67,14 +67,14 @@ export default function Dashboard() {
   ];
 
   return (
-    <CortexDashboardLayout>
+    <OmnecorDashboardLayout>
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
         <div className="border-b border-border bg-gradient-to-br from-card to-background">
           <div className="max-w-7xl mx-auto px-6 py-12 md:py-20">
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-accent" />
-              <span className="text-sm font-medium text-accent">Welcome to CORTEX</span>
+              <span className="text-sm font-medium text-accent">Welcome to Omnecor</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               The Ultimate All-in-One AI Workbench
@@ -92,7 +92,7 @@ export default function Dashboard() {
           <div className="mb-8">
             <h2 className="text-2xl font-bold mb-2">Core Features</h2>
             <p className="text-muted-foreground">
-              Explore the powerful capabilities of CORTEX
+              Explore the powerful capabilities of Omnecor
             </p>
           </div>
 
@@ -154,6 +154,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </CortexDashboardLayout>
+    </OmnecorDashboardLayout>
   );
 }

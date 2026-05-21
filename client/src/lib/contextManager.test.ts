@@ -15,29 +15,29 @@ import {
 describe("Hierarchical Context Manager", () => {
   describe("Goal & Plan Management", () => {
     it("should create a goal and plan", () => {
-      const goalAndPlan = createGoalAndPlan("Build CORTEX", ["Step 1", "Step 2"], "high");
+      const goalAndPlan = createGoalAndPlan("Build Omnecor", ["Step 1", "Step 2"], "high");
 
       expect(goalAndPlan.id).toBeDefined();
-      expect(goalAndPlan.goal).toBe("Build CORTEX");
+      expect(goalAndPlan.goal).toBe("Build Omnecor");
       expect(goalAndPlan.plan).toHaveLength(2);
       expect(goalAndPlan.priority).toBe("high");
       expect(goalAndPlan.createdAt).toBeInstanceOf(Date);
     });
 
     it("should update goal and plan", () => {
-      const goalAndPlan = createGoalAndPlan("Build CORTEX", ["Step 1"], "high");
+      const goalAndPlan = createGoalAndPlan("Build Omnecor", ["Step 1"], "high");
       const updated = updateGoalAndPlan(goalAndPlan, {
-        goal: "Build CORTEX v2",
+        goal: "Build Omnecor v2",
         plan: ["Step 1", "Step 2", "Step 3"],
       });
 
-      expect(updated.goal).toBe("Build CORTEX v2");
+      expect(updated.goal).toBe("Build Omnecor v2");
       expect(updated.plan).toHaveLength(3);
       expect(updated.updatedAt.getTime()).toBeGreaterThanOrEqual(goalAndPlan.createdAt.getTime());
     });
 
     it("should preserve ID when updating", () => {
-      const goalAndPlan = createGoalAndPlan("Build CORTEX", ["Step 1"], "high");
+      const goalAndPlan = createGoalAndPlan("Build Omnecor", ["Step 1"], "high");
       const updated = updateGoalAndPlan(goalAndPlan, { goal: "Updated Goal" });
 
       expect(updated.id).toBe(goalAndPlan.id);
@@ -151,10 +151,10 @@ describe("Hierarchical Context Manager", () => {
 
   describe("Hierarchical Context Creation", () => {
     it("should create hierarchical context", () => {
-      const context = createHierarchicalContext("Build CORTEX", ["Step 1", "Step 2"]);
+      const context = createHierarchicalContext("Build Omnecor", ["Step 1", "Step 2"]);
 
       expect(context.id).toBeDefined();
-      expect(context.goalAndPlan.goal).toBe("Build CORTEX");
+      expect(context.goalAndPlan.goal).toBe("Build Omnecor");
       expect(context.terminalLog).toHaveLength(0);
       expect(context.logSummaries).toHaveLength(0);
       expect(context.totalTokensUsed).toBe(0);
@@ -241,7 +241,7 @@ describe("Hierarchical Context Manager", () => {
       const context = createMockHierarchicalContext();
 
       expect(context.id).toBeDefined();
-      expect(context.goalAndPlan.goal).toContain("CORTEX");
+      expect(context.goalAndPlan.goal).toContain("Omnecor");
       expect(context.goalAndPlan.plan.length).toBeGreaterThan(0);
       expect(context.terminalLog.length).toBeGreaterThan(0);
     });

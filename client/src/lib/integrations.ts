@@ -444,7 +444,7 @@ export function createMockSlackIntegration(): SlackIntegration {
     workspaces: [
       {
         id: "ws_1",
-        name: "CORTEX Team",
+        name: "Omnecor Team",
         icon: "🤖",
         channels: [
           { id: "ch_1", name: "general", isPrivate: false },

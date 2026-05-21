@@ -1,5 +1,5 @@
 /**
- * Keyboard Shortcuts Manager for CORTEX
+ * Keyboard Shortcuts Manager for Omnecor
  * 
  * Provides a centralized system for managing keyboard shortcuts across the application.
  * Supports modifier keys (Ctrl, Shift, Alt, Cmd) and prevents conflicts.
@@ -30,7 +30,7 @@ export interface KeyboardShortcut {
 }
 
 /**
- * Default keyboard shortcuts for CORTEX
+ * Default keyboard shortcuts for Omnecor
  * Follows common conventions (Ctrl+S for save, Ctrl+Z for undo, etc.)
  */
 export const DEFAULT_SHORTCUTS: Record<KeyboardAction, KeyboardShortcut> = {

@@ -431,7 +431,7 @@ export function createMockSettings(): AppSettings {
   // Add some mock knowledge base folders
   let updated = addKnowledgeBaseFolder(
     settings,
-    "CORTEX Projects",
+    "Omnecor Projects",
     "/home/user/cortex-projects"
   );
   updated = addKnowledgeBaseFolder(
@@ -455,7 +455,7 @@ export function createMockSettings(): AppSettings {
   updated = addFileTypeToBlacklist(updated, ".vbs");
 
   // Configure cloud sync
-  updated = enableCloudSync(updated, "google-drive", "/CORTEX Backup");
+  updated = enableCloudSync(updated, "google-drive", "/Omnecor Backup");
 
   return updated;
 }

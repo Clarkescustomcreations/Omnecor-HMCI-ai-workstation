@@ -282,7 +282,7 @@ export function exportContext(context: HierarchicalContext): string {
  */
 export function createMockHierarchicalContext(): HierarchicalContext {
   const context = createHierarchicalContext(
-    "Build CORTEX: The Ultimate All-in-One AI Workstation",
+    "Build Omnecor: The Ultimate All-in-One AI Workstation",
     [
       "Phase 1: Design system and dashboard layout",
       "Phase 2: Implement Neural Node-Tree UI",
@@ -298,14 +298,14 @@ export function createMockHierarchicalContext(): HierarchicalContext {
 
   // Add mock terminal log entries
   const mockEntries = [
-    createTerminalLogEntry("info", "Starting CORTEX initialization"),
+    createTerminalLogEntry("info", "Starting Omnecor initialization"),
     createTerminalLogEntry("info", "Loading configuration files"),
     createTerminalLogEntry("info", "Initializing database connection"),
     createTerminalLogEntry("info", "Setting up AI model providers"),
     createTerminalLogEntry("warning", "Ollama service not detected - using API models only"),
     createTerminalLogEntry("info", "Loading Neural Node-Tree data"),
     createTerminalLogEntry("info", "Initializing chat interface"),
-    createTerminalLogEntry("info", "CORTEX ready for use"),
+    createTerminalLogEntry("info", "Omnecor ready for use"),
   ];
 
   let updatedContext = context;
