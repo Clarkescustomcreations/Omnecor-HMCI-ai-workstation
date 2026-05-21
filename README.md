@@ -1,17 +1,17 @@
-# 👁️ Perception AI Studio
-> **Build Your Reality.**
+# 👁️ Omnecor AI Studio
+> **Context-Aware AI Infrastructure.**
 
 Stop bouncing between fragmented tabs, managing a dozen different subscriptions, and losing your context. 
 
-**Perception AI Studio** is the world's first **Human-Machine Collaboration Interface (HMCI)**. Designed as the central nervous system for your entire digital and physical workflow, Perception unites software development, business automation, media generation, and hardware engineering under one unified, intelligent workspace.
+**Omnecor** is the world's first **Human-Machine Collaboration Interface (HMCI)**. Designed as the central nervous system for your entire digital and physical workflow, Omnecor unites software development, business automation, media generation, and hardware engineering under one unified, intelligent workspace.
 
 ## ✨ Core Features
 
 ### 🚦 The 1.5B Valet Router (The Brain)
-At the heart of Perception is a lightning-fast, locally hosted 1.5B parameter AI Valet. Operating entirely on your system's RAM, the Valet acts as the ultimate traffic cop. It analyzes your prompts in real-time and routes them to the perfect model for the job—sending coding tasks to Claude, massive documents to Gemini, and real-time research to Grok.
+At the heart of Omnecor is a lightning-fast, locally hosted 1.5B parameter AI Valet. Operating entirely on your system's RAM, the Valet acts as the ultimate traffic cop. It analyzes your prompts in real-time and routes them to the perfect model for the job—sending coding tasks to Claude, massive documents to Gemini, and real-time research to Grok.
 
 ### 🔗 Unified Session Manager (Bring Your Own Account)
-Why pay for APIs when you already pay for web subscriptions? Perception securely connects to your existing web accounts (ChatGPT Plus, Claude Pro, Grok, etc.). Our headless session manager allows you to use your web-tier access directly inside the Studio, drastically reducing your API overhead. 
+Why pay for APIs when you already pay for web subscriptions? Omnecor securely connects to your existing web accounts (ChatGPT Plus, Claude Pro, Grok, etc.). Our headless session manager allows you to use your web-tier access directly inside the workspace, drastically reducing your API overhead. 
 
 ### 💳 The Agentic Wallet
 Never wake up to a massive API bill again. Assign a strict prepaid budget to any project. The Valet tracks every fraction of a cent, generates locked virtual credit cards for ephemeral cloud compute (like RunPod), and automatically downgrades to local models if the budget runs low.
@@ -26,7 +26,7 @@ Spin up specialized autonomous agents, assign them skills, and let them collabor
 - **Hardware & 3D:** Bridge the gap to the physical world with integrated Blender 3D modeling and KiCad PCB routing.
 
 ## ⚙️ Compute-Agnostic Execution
-Perception adapts to your hardware, offering three distinct execution environments:
+Omnecor adapts to your hardware, offering three distinct execution environments:
 
 1. **The Scrapper:** Local Valet manages the UI; heavy lifting is routed through your Unified Session Manager web accounts.
 2. **The Big Spender:** Utilizes paid API keys and autonomously rents ephemeral cloud GPUs for heavy training, destroying the instance the second it finishes.
@@ -36,7 +36,7 @@ Perception adapts to your hardware, offering three distinct execution environmen
 
 ## 🎯 Technical Overview
 
-Perception AI Studio (codenamed **CORTEX**) is a comprehensive, local-first AI workbench for Linux that combines the power of multiple AI models, project management, and specialized tools into a single, elegant interface.
+**Omnecor** is a comprehensive, local-first AI workbench for Linux that combines the power of multiple AI models, project management, and specialized tools into a single, elegant interface.
 
 CORTEX is designed to be the "Frontal Lobe" of your AI workflow—a unified orchestrator that routes your ideas through any available AI model or tool. Whether you're working with local models for privacy, cloud APIs for power, or specialized tools like Blender and KiCad, CORTEX brings everything together seamlessly.
 
@@ -124,7 +124,7 @@ cortex-ai-workstation/
 
 ## 🎨 Design System
 
-Perception uses a carefully crafted dark-themed design system based on OKLCH colors:
+Omnecor uses a carefully crafted dark-themed design system based on OKLCH colors:
 
 - **Background** - Deep slate (oklch(0.15 0 0))
 - **Foreground** - Light gray (oklch(0.95 0 0))
@@ -328,12 +328,12 @@ See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for solutions.
 
 - **Documentation** - See `/docs` directory
 - **GitHub Issues** - Report bugs or request features
-- **Email** - support@perception.ai
+- **Email** - support@omnecor.ai
 - **Discord** - Join our community server
 
 ## 📄 License
 
-Perception AI Studio is licensed under the MIT License. See [LICENSE](./LICENSE) file for details.
+Omnecor is licensed under the MIT License. See [LICENSE](./LICENSE) file for details.
 
 ## 🙏 Acknowledgments
 
@@ -350,15 +350,16 @@ Perception builds on the shoulders of giants:
 
 ## 🚀 Getting Started
 
-1. **[Install Perception](./INSTALLATION.md)** - Follow the installation guide
+1. **[Install Omnecor](./INSTALLATION.md)** - Follow the installation guide
 2. **[Read User Guide](./USER_GUIDE.md)** - Learn all features
 3. **[Configure Settings](./USER_GUIDE.md#settings--preferences)** - Customize for your workflow
 4. **[Start Creating](./HELP.md#quick-start-5-minutes)** - Begin your AI journey
+5. **[Check Status](./STATUS.md)** - View project progress and roadmap
 
 ---
 
 **Built with ❤️ for the AI community**
 
-Perception AI Studio: Where your ideas meet AI. 🧠✨
+Omnecor: Where your ideas meet AI. 🧠✨
 
-*Stop managing tools. Start building reality.*
+*Operational Memory Never Escapes Context Overview Remains.*
