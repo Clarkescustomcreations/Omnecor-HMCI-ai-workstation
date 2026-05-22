@@ -17,12 +17,12 @@ import {
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 
-interface CortexDashboardLayoutProps {
+interface OmnecorDashboardLayoutProps {
   children: React.ReactNode;
 }
 
 /**
- * CORTEX Dashboard Layout Component
+ * Omnecor Dashboard Layout Component
  * 
  * Provides a dark-themed, refined sidebar navigation with the following sections:
  * - Chat: AI conversation interface
@@ -38,7 +38,7 @@ interface CortexDashboardLayoutProps {
  * - User profile and logout button
  * - Refined OKLCH color palette
  */
-export default function CortexDashboardLayout({ children }: CortexDashboardLayoutProps) {
+export default function OmnecorDashboardLayout({ children }: OmnecorDashboardLayoutProps) {
   const [location] = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { user, logout } = useAuth();
@@ -100,7 +100,7 @@ export default function CortexDashboardLayout({ children }: CortexDashboardLayou
               <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
                 <Brain className="w-5 h-5 text-accent-foreground" />
               </div>
-              <h1 className="text-xl font-bold text-sidebar-foreground">CORTEX</h1>
+              <h1 className="text-xl font-bold text-sidebar-foreground">Omnecor</h1>
             </div>
             <button
               onClick={() => setSidebarOpen(false)}

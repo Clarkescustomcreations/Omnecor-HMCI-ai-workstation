@@ -1,5 +1,5 @@
 /**
- * Application Preferences Manager for CORTEX
+ * Application Preferences Manager for Omnecor
  * 
  * Manages user preferences including theme, language, and UI settings.
  * Persists preferences to localStorage and provides reactive updates.

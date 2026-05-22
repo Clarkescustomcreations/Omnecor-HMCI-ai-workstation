@@ -1,5 +1,5 @@
 /**
- * Advanced Settings Manager for CORTEX
+ * Advanced Settings Manager for Omnecor
  * 
  * Manages performance tuning, resource allocation, and system-level configurations
  * including Zram/Swap buffers, model caching, context limits, and data retention policies.

@@ -373,10 +373,10 @@ export function getModuleInfo(type: ModuleType) {
  * Mock LLM Builder session
  */
 export function createMockLLMBuilderSession(): LLMBuilderSession {
-  let session = createLLMBuilderSession("CORTEX Fine-tuning", "mistral-7b");
+  let session = createLLMBuilderSession("Omnecor Fine-tuning", "mistral-7b");
 
   const loraConfig = createLoRAConfig(
-    "CORTEX Adapter",
+    "Omnecor Adapter",
     "mistral-7b",
     "/data/cortex-training-dataset"
   );
@@ -402,9 +402,9 @@ export function createMockLLMBuilderSession(): LLMBuilderSession {
  */
 export function createMockBlenderProject(): BlenderProject {
   let project = createBlenderProject(
-    "CORTEX Interface Design",
+    "Omnecor Interface Design",
     "/projects/cortex-ui-3d.blend",
-    "3D visualization of CORTEX dashboard"
+    "3D visualization of Omnecor dashboard"
   );
 
   project = addBlenderObject(project, "Dashboard", "mesh", [0, 0, 0]);
@@ -419,9 +419,9 @@ export function createMockBlenderProject(): BlenderProject {
  */
 export function createMockPCBProject(): PCBProject {
   let project = createPCBProject(
-    "CORTEX Control Board",
+    "Omnecor Control Board",
     "/projects/cortex-control.kicad_pcb",
-    "Main control board for CORTEX AI workstation"
+    "Main control board for Omnecor AI workstation"
   );
 
   project = addPCBComponent(project, "U1", "STM32H7", "LQFP144", [10, 10]);

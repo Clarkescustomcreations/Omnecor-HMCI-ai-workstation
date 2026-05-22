@@ -28,6 +28,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
+import { phase2Router } from "./routers/phase2";
 
 // ─── Phase 2+ Feature Routers (now unified under main tRPC instance) ────────
 import { specializedModulesRouter } from "./routers/specializedModules";
