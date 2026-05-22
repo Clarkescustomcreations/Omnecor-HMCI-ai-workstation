@@ -3,6 +3,25 @@
 > **Operational Memory Never Escapes Context Overview Remains.**
 
 Last updated: 2026-05-22
+Architecture Version: 2.1.0 (Unified)
+
+---
+
+## Architecture Status: UNIFIED
+
+The split-brain backend conflict introduced by PR #1 has been fully resolved. The Omnecor backend now operates as a single, coherent Express server with one tRPC instance, one context definition, and one HTTP/WebSocket endpoint.
+
+### What Was Resolved
+
+| Issue | Before | After |
+|-------|--------|-------|
+| Express Servers | 2 (port 3000 + port 3100) | 1 (port 3000 only) |
+| tRPC Instances | 2 (incompatible contexts) | 1 (unified TrpcContext) |
+| Context Types | TrpcContext + OmnecorContext | Single TrpcContext with services |
+| Router Composition | Stub + standalone appRouter | Unified appRouter in server/routers.ts |
+| WebSocket | Attached to standalone server | Attached to main HTTP server at /ws |
+| Service Lifecycle | Unmanaged | Init on startup, graceful shutdown |
+| TypeScript Errors | 34 (missing deps, type mismatches) | 0 |
 
 ---
 
@@ -18,6 +37,46 @@ Last updated: 2026-05-22
 | Phase 6 | Neural Node-Tree Real-Time Wiring | In Progress | 60% |
 | Phase 7 | ESPTool Bridge (IoT Firmware Flashing) | **Integration Complete** | 100% |
 | Phase 8 | Deployment & Packaging | Scaffolded | 40% |
+| Architecture | Unified backend (PR #1 conflict resolved) | **RESOLVED** | 100% |
+
+---
+
+## Unified Context Definition
+
+The `TrpcContext` (at `server/_core/context.ts`) now provides:
+
+```typescript
+{
+  req: Express.Request,
+  res: Express.Response,
+  user: User | null,
+  services: {
+    fileWatcher: FileSystemWatcherService,
+    hashTracker: HashTrackerService,
+    vectorDB: VectorDBService,
+    processManager: ProcessManagerService,
+    voice: VoiceService,
+  }
+}
+```
+
+---
+
+## Unified Router Namespace
+
+All endpoints accessible at `/api/trpc/`:
+
+| Namespace | Description | Source |
+|-----------|-------------|--------|
+| `system` | Health, version, system info | `_core/systemRouter` |
+| `auth` | Session management (me, logout) | `routers.ts` inline |
+| `modules` | Blender, KiCad, RVC, ESP bridges (Python child_process) | `routers/specializedModules` |
+| `knowledgeBase` | VectorDB semantic search, directory ingestion | `routers/knowledgeBase` |
+| `voice` | Whisper transcription, TTS synthesis | `phase2/routers/voiceRouter` |
+| `training` | LoRA fine-tuning job control (start/stop/status) | `phase2/routers/trainingRouter` |
+| `project` | File watcher, Neural Node-Tree, loop detector | `phase2/routers/projectRouter` |
+| `hardware` | Blender, KiCad, ESP hardware operations | `phase2/routers/hardwareRouter` |
+| `security` | File scanning, encryption, backup/restore | `phase2/routers/securityRouter` |
 
 ---
 
@@ -40,6 +99,7 @@ All core backend services are merged and stable:
 **Files:**
 - `server/python_bridges/blender_bridge.py` — Blender background-mode bridge
 - `server/routers/specializedModules.ts` — tRPC procedures: `blenderRender`, `blenderExportGltf`, `blenderRunScript`
+- `server/phase2/routers/hardwareRouter.ts` — Full Blender tRPC: `blenderStatus`, `blenderExecuteScript`, `blenderExport`
 
 **Architecture:**
 - Blender is spawned via `child_process.spawn` in headless mode (`-b`)
@@ -55,12 +115,13 @@ All core backend services are merged and stable:
 **Files:**
 - `server/python_bridges/kicad_bridge.py` — KiCad CLI wrapper
 - `server/routers/specializedModules.ts` — tRPC procedures: `kicadAction`, `kicadDrc`, `kicadExportStep`, `kicadExportBom`
+- `server/phase2/routers/hardwareRouter.ts` — Full KiCad tRPC: `kicadStatus`, `kicadExportSchematic`, `kicadExportGerbers`, `kicadRunDRC`, `kicadRunERC`, `kicadExportSTEP`
 
 **Architecture:**
 - Spawns `python3 kicad_bridge.py` with `--action` and `--project_path` args
 - Parses DRC errors from combined stdout/stderr
 - Returns structured JSON with status, errors array, and output file paths
-- Supports: DRC check, STEP export (3D), BOM export (CSV)
+- Supports: DRC check, ERC check, STEP export (3D), BOM export (CSV), Gerber export
 
 ---
 
@@ -85,6 +146,7 @@ All core backend services are merged and stable:
 **Files:**
 - `server/python_bridges/esptool_bridge.py` — esptool.py CLI wrapper
 - `server/routers/specializedModules.ts` — tRPC procedures: `espFlash`, `espDetectPorts`
+- `server/phase2/routers/hardwareRouter.ts` — Full ESP tRPC: `espStatus`, `espDetectPorts`, `espChipInfo`, `espFlash`, `espEraseFlash`
 
 **Architecture:**
 - Spawns `python3 esptool_bridge.py` with `--port`, `--baud`, `--firmware_path`
@@ -101,6 +163,7 @@ All core backend services are merged and stable:
 - `server/services/VectorDBService.ts` — ChromaDB client wrapper
 - `server/services/MemoryArchitectService.ts` — Layer 2 Long-Term Memory domain logic
 - `server/routers/knowledgeBase.ts` — tRPC procedures for knowledge base operations
+- `server/phase2/services/VectorDBService.ts` — Singleton with degraded offline mode (used by projectRouter)
 
 **Architecture:**
 - Per-project ChromaDB collections (isolated "brains")
@@ -116,14 +179,33 @@ All core backend services are merged and stable:
 
 | Scope | Errors | Notes |
 |-------|--------|-------|
+| `server/_core/context.ts` | 0 | Unified context |
+| `server/_core/index.ts` | 0 | Unified entry point |
+| `server/routers.ts` | 0 | Unified appRouter |
+| `server/phase2/routers/*.ts` | 0 | All migrated to _core/trpc |
+| `server/phase2/services/*.ts` | 0 | All deps installed |
+| `server/phase2/websocket/*.ts` | 0 | Clean |
 | `server/routers/specializedModules.ts` | 0 | Clean |
 | `server/routers/knowledgeBase.ts` | 0 | Clean |
-| `server/services/VectorDBService.ts` | 0 | Clean |
-| `server/services/MemoryArchitectService.ts` | 0 | Clean |
-| `server/routers.ts` (appRouter) | 0 | Clean |
-| `server/phase2/` (legacy scaffold) | 34 | Missing deps (chokidar, ws, uuid) — not in active runtime path |
+| **TOTAL** | **0** | **Full codebase compiles cleanly** |
 
-**Verdict:** All production-path code compiles cleanly. The `server/phase2/` directory contains the earlier architectural scaffold and is not imported by the live `appRouter`. It will be cleaned up or migrated in a future PR.
+---
+
+## Dependencies Added (Architecture Unification)
+
+| Package | Purpose | Type |
+|---------|---------|------|
+| `chokidar` | File system watching | Runtime |
+| `uuid` | Job ID generation | Runtime |
+| `ws` | WebSocket server | Runtime |
+| `@types/ws` | TypeScript declarations | Dev |
+| `@types/uuid` | TypeScript declarations | Dev |
+
+---
+
+## tsconfig.json Changes
+
+- Added `"target": "ES2022"` for proper Map/Set iterator support
 
 ---
 

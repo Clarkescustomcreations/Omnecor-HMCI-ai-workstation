@@ -13,10 +13,12 @@
  *  - File watching registration triggers automatic VectorDB indexing
  *  - The Neural Node-Tree UI subscribes to WebSocket events for real-time updates
  *  - This router provides the initial state and control plane
+ *
+ * UNIFIED: This router now imports from the main _core/trpc.ts stack.
  */
 
 import { z } from "zod";
-import { router, publicProcedure } from "./trpc.js";
+import { router, publicProcedure } from "../../_core/trpc";
 import { TRPCError } from "@trpc/server";
 
 // ---------------------------------------------------------------------------
@@ -48,7 +50,7 @@ const ingestDocumentSchema = z.object({
   documents: z.array(z.object({
     id: z.string().min(1),
     text: z.string().min(1),
-    metadata: z.record(z.union([z.string(), z.number(), z.boolean()])),
+    metadata: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])),
   })),
 });
 
@@ -58,9 +60,9 @@ const loopCheckSchema = z.object({
   /** Tool name being invoked */
   toolName: z.string().min(1),
   /** Arguments passed to the tool */
-  args: z.record(z.any()),
+  args: z.record(z.string(), z.any()),
   /** Current agent state */
-  state: z.record(z.any()),
+  state: z.record(z.string(), z.any()),
 });
 
 // ---------------------------------------------------------------------------

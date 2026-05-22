@@ -104,7 +104,7 @@ export class OmnecorWebSocketServer {
       server: httpServer,
       path: "/ws",
       // Verify origin for security (allow localhost and configured origins)
-      verifyClient: (info) => this.verifyClient(info),
+      verifyClient: (info: any) => this.verifyClient(info),
     });
 
     // Get service instances

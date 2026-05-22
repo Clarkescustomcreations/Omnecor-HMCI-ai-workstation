@@ -13,10 +13,13 @@
  *  - Audio file uploads are handled via the Express multipart middleware
  *    (not tRPC), then the file path is passed to the tRPC procedure
  *  - Errors from Python microservices are normalized into tRPC errors
+ *
+ * UNIFIED: This router now imports from the main _core/trpc.ts stack,
+ * using the unified TrpcContext that provides both auth and services.
  */
 
 import { z } from "zod";
-import { router, publicProcedure } from "./trpc.js";
+import { router, publicProcedure } from "../../_core/trpc";
 import { TRPCError } from "@trpc/server";
 
 // ---------------------------------------------------------------------------
@@ -96,7 +99,6 @@ export const voiceRouter = router({
       } catch (error) {
         const message = (error as Error).message;
 
-        // Map specific errors to appropriate tRPC error codes
         if (message.includes("not found")) {
           throw new TRPCError({
             code: "NOT_FOUND",

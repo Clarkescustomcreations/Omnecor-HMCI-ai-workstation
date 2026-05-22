@@ -1,72 +1,19 @@
 /**
- * @file routers/trpc.ts
- * @description Omnecor — tRPC Base Configuration
+ * @file server/phase2/routers/trpc.ts
+ * @deprecated This file is a compatibility shim.
  *
- * Initializes the tRPC instance with context creation.
- * All routers import `router` and `publicProcedure` from this file.
+ * The Phase 2 tRPC instance has been UNIFIED with the main stack.
+ * All routers now import directly from server/_core/trpc.ts.
  *
- * Architecture Notes:
- *  - Context carries references to all singleton services
- *  - This enables dependency injection for testing
- *  - Middleware can be added here for auth, rate limiting, etc.
+ * This shim re-exports the main tRPC primitives so that any legacy
+ * code still importing from "./trpc" or "./trpc.js" will resolve
+ * correctly without modification.
+ *
+ * The OmnecorContext type is now merged into TrpcContext at:
+ *   server/_core/context.ts
  */
 
-import { initTRPC } from "@trpc/server";
-import { FileSystemWatcherService } from "../services/FileSystemWatcherService.js";
-import { HashTrackerService } from "../services/HashTrackerService.js";
-import { VectorDBService } from "../services/VectorDBService.js";
-import { ProcessManagerService } from "../services/ProcessManagerService.js";
-import { VoiceService } from "../services/VoiceService.js";
-
-// ---------------------------------------------------------------------------
-// Context
-// ---------------------------------------------------------------------------
-
-/**
- * Context available to all tRPC procedures.
- * Services are resolved from their singletons at request time.
- */
-export interface OmnecorContext {
-  services: {
-    fileWatcher: FileSystemWatcherService;
-    hashTracker: HashTrackerService;
-    vectorDB: VectorDBService;
-    processManager: ProcessManagerService;
-    voice: VoiceService;
-  };
-}
-
-/**
- * Creates the tRPC context for each request.
- * Called by the Express adapter on every incoming request.
- */
-export function createContext(): OmnecorContext {
-  return {
-    services: {
-      fileWatcher: FileSystemWatcherService.getInstance(),
-      hashTracker: HashTrackerService.getInstance(),
-      vectorDB: VectorDBService.getInstance(),
-      processManager: ProcessManagerService.getInstance(),
-      voice: VoiceService.getInstance(),
-    },
-  };
-}
-
-// ---------------------------------------------------------------------------
-// tRPC Initialization
-// ---------------------------------------------------------------------------
-
-const t = initTRPC.context<OmnecorContext>().create({
-  errorFormatter({ shape }) {
-    return shape;
-  },
-});
-
-/** Base router factory */
-export const router = t.router;
-
-/** Public procedure (no auth required for local-first application) */
-export const publicProcedure = t.procedure;
-
-/** Middleware factory for future auth/rate-limiting */
-export const middleware = t.middleware;
+// Re-export everything from the unified tRPC stack
+export { router, publicProcedure, protectedProcedure, adminProcedure } from "../../_core/trpc";
+export { createContext } from "../../_core/context";
+export type { TrpcContext as OmnecorContext } from "../../_core/context";
