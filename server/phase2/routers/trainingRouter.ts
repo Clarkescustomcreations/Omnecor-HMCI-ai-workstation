@@ -17,10 +17,12 @@
  *    to connected WebSocket clients by the WebSocket server module.
  *  - Job IDs are returned immediately on start — the client then subscribes
  *    to the WebSocket channel for that specific job's progress updates.
+ *
+ * UNIFIED: This router now imports from the main _core/trpc.ts stack.
  */
 
 import { z } from "zod";
-import { router, publicProcedure } from "./trpc.js";
+import { router, publicProcedure } from "../../_core/trpc";
 import { TRPCError } from "@trpc/server";
 
 // ---------------------------------------------------------------------------

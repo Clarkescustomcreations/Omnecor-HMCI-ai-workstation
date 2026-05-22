@@ -12,14 +12,16 @@
  *  - Progress is streamed via WebSocket (not tRPC)
  *  - Installation checks are cached for performance
  *  - Operations validate inputs before spawning processes
+ *
+ * UNIFIED: This router now imports from the main _core/trpc.ts stack.
  */
 
 import { z } from "zod";
-import { router, publicProcedure } from "./trpc.js";
+import { router, publicProcedure } from "../../_core/trpc";
 import { TRPCError } from "@trpc/server";
-import { BlenderBridge } from "../bridges/BlenderBridge.js";
-import { KiCadBridge } from "../bridges/KiCadBridge.js";
-import { ESPToolBridge } from "../bridges/ESPToolBridge.js";
+import { BlenderBridge } from "../bridges/BlenderBridge";
+import { KiCadBridge } from "../bridges/KiCadBridge";
+import { ESPToolBridge } from "../bridges/ESPToolBridge";
 
 // ---------------------------------------------------------------------------
 // Input Schemas

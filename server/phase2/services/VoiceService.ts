@@ -212,7 +212,7 @@ export class VoiceService {
 
     // Build multipart form data manually using the Fetch API
     const formData = new FormData();
-    const blob = new Blob([fileBuffer], { type: mimeType });
+    const blob = new Blob([new Uint8Array(fileBuffer)], { type: mimeType });
     formData.append("file", blob, resolvedFilename);
 
     try {

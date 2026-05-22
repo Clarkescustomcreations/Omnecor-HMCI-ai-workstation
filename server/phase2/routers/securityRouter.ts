@@ -11,12 +11,14 @@
  *  - Passphrase is never stored — only used transiently for key derivation
  *  - Scan results are cached for recently scanned files
  *  - Backup operations are async and tracked via ProcessManagerService
+ *
+ * UNIFIED: This router now imports from the main _core/trpc.ts stack.
  */
 
 import { z } from "zod";
-import { router, publicProcedure } from "./trpc.js";
+import { router, publicProcedure } from "../../_core/trpc";
 import { TRPCError } from "@trpc/server";
-import { SecurityService } from "../services/SecurityService.js";
+import { SecurityService } from "../services/SecurityService";
 
 // ---------------------------------------------------------------------------
 // Input Schemas

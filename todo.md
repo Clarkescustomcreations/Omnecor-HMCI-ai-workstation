@@ -79,13 +79,13 @@
   - [ ] Dataset upload and preprocessing (requires backend)
   - [ ] Neural Map Visualizer integration (planned)
 - [x] Implement AI-Assisted 3D Modeler launcher
-  - [ ] Blender CLI integration (requires backend)
-  - [ ] Blender API integration (requires backend)
-  - [ ] Real-time preview sync (requires backend)
+  - [x] Blender CLI integration (backend: specializedModules.ts → blender_bridge.py)
+  - [x] Blender API integration (backend: child_process.spawn with JSON stdout)
+  - [ ] Real-time preview sync (requires WebSocket wiring to UI)
 - [x] Implement AI-Assisted PCB Designer launcher
-  - [ ] KiCad CLI integration (requires backend)
-  - [ ] KiCad API integration (requires backend)
-  - [ ] Real-time schematic sync (requires backend)
+  - [x] KiCad CLI integration (backend: specializedModules.ts → kicad_bridge.py)
+  - [x] KiCad API integration (backend: DRC, STEP export, BOM export)
+  - [ ] Real-time schematic sync (requires WebSocket wiring to UI)
 
 ### Third-Party Integrations Hub
 - [x] Design integrations UI with account linking
@@ -119,24 +119,40 @@
 - [x] Add application preferences (theme, language, etc.)
 - [ ] Implement backup and restore functionality
 
-### Testing & Documentation
-- [x] Write unit tests for hash generation and loop detection
-- [x] Write unit tests for context manager
-- [x] Write unit tests for chat context
-- [x] Write unit tests for settings
-- [x] Write unit tests for specialized modules
-- [x] Write unit tests for AI models
-- [x] Write unit tests for neural node tree
-- [x] Write unit tests for integrations
-- [x] Write unit tests for action hash detector
-- [x] Create INSTALLATION.md
-- [x] Create USER_GUIDE.md
-- [x] Create TROUBLESHOOTING.md
-- [x] Create HELP.md
-- [x] Update README.md with Omnecor branding
-- [x] Create STATUS.md (Phase 1 summary)
+## Backend Services
+- [x] Implement file system watcher for Neural Node-Tree (Phase 2: FileSystemWatcherService)
+- [ ] Build model management service
+- [ ] Implement AI provider abstraction layer
+- [x] Build context manager service (Phase 2: ProcessManagerService + context handling)
+- [x] Implement action hash tracking service (Phase 2: HashTrackerService)
+- [x] Build knowledge base indexing service (VectorDBService + MemoryArchitectService)
+- [x] Implement file security scanning service (Phase 2: SecurityService)
+- [ ] Build integration management service
+- [x] Implement local encryption service (Phase 2: SecurityService — AES-256-GCM)
+- [ ] Build model marketplace sync service
 
-### Polish & Refinement
+## Specialized Module Bridges (Phase 3/4/5/7)
+- [x] Blender Bridge — headless render, glTF export, script execution
+- [x] KiCad Bridge — DRC, STEP export, BOM export
+- [x] RVC Voice Conversion — FastAPI proxy with model caching
+- [x] ESPTool Bridge — firmware flashing with progress streaming
+- [x] VectorDB + MemoryArchitect — per-project semantic search & knowledge base
+- [x] tRPC router integration (specializedModules + knowledgeBase routers)
+- [x] Registered in appRouter (server/routers.ts)
+
+## Testing & Quality Assurance
+- [ ] Write unit tests for hash generation and loop detection
+- [ ] Write unit tests for context manager
+- [ ] Write integration tests for AI providers
+- [ ] Test Neural Node-Tree rendering with large file structures
+- [ ] Test streaming chat responses
+- [ ] Test context transparency accuracy
+- [ ] Test HITL alert surfacing
+- [ ] Test module launcher functionality
+- [ ] Test integration OAuth flows
+- [ ] Performance testing with large contexts
+
+## Polish & Refinement
 - [x] Audit all spacing and typography
 - [x] Ensure consistent component styling
 - [x] Implement loading states and skeletons (basic)
