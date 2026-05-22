@@ -1,9 +1,9 @@
-# 👁️ Omnecor AI Studio
+# 👁️ Omnecor 
 > **Context-Aware AI Infrastructure.**
 
 Stop bouncing between fragmented tabs, managing a dozen different subscriptions, and losing your context. 
 
-**Omnecor** is the world's first **Human-Machine Collaboration Interface (HMCI)**. Designed as the central nervous system for your entire digital and physical workflow, Omnecor unites software development, business automation, media generation, and hardware engineering under one unified, intelligent workspace.
+**Omnecor** is the first **Human-Machine Collaboration Interface (HMCI)**. Designed as the central nervous system for your entire digital and physical workflow, Omnecor unites software development, business automation, media generation, and hardware engineering under one unified, intelligent workspace.
 
 ## ✨ Core Features
 
@@ -28,7 +28,7 @@ Spin up specialized autonomous agents, assign them skills, and let them collabor
 ## ⚙️ Compute-Agnostic Execution
 Omnecor adapts to your hardware, offering three distinct execution environments:
 
-1. **The Scrapper:** Local Valet manages the UI; heavy lifting is routed through your Unified Session Manager web accounts.
+1. **The Scrapper:** Local Valet manages the UI; heavy lifting is routed by you through your Unified Session Manager web accounts.
 2. **The Big Spender:** Utilizes paid API keys and autonomously rents ephemeral cloud GPUs for heavy training, destroying the instance the second it finishes.
 3. **The Sovereign:** 100% local, offline execution. From custom LoRA training to local vector databases, your data never leaves your high-end rig.
 
@@ -38,7 +38,7 @@ Omnecor adapts to your hardware, offering three distinct execution environments:
 
 **Omnecor** is a comprehensive, local-first AI workbench for Linux that combines the power of multiple AI models, project management, and specialized tools into a single, elegant interface.
 
-CORTEX is designed to be the "Frontal Lobe" of your AI workflow—a unified orchestrator that routes your ideas through any available AI model or tool. Whether you're working with local models for privacy, cloud APIs for power, or specialized tools like Blender and KiCad, CORTEX brings everything together seamlessly.
+Omnecor is designed to be the "Frontal Lobe" of your AI workflow—a unified orchestrator that routes your ideas through any available AI model or tool. Whether you're working with local models for privacy, cloud APIs for power, or specialized tools like Blender and KiCad, CORTEX brings everything together seamlessly.
 
 ### Key Technical Features
 
@@ -53,6 +53,8 @@ CORTEX is designed to be the "Frontal Lobe" of your AI workflow—a unified orch
 - **Performance Optimized** - Zram/Swap buffers, GPU acceleration, model caching
 
 ## 🚀 Quick Start
+**Notice Currrently Omnecor is an open source work in progress and not fully functional please contact for more information or to join the development team 
+  Contact info available on Clarkescustomcreations profile page
 
 ### Prerequisites
 
@@ -77,7 +79,7 @@ npm run dev
 
 Open `http://localhost:3000` in your browser.
 
-## 📚 Documentation
+## 📚 Documentation (coming Soon)
 
 - **[Installation Guide](./INSTALLATION.md)** - Detailed setup instructions
 - **[User Guide](./USER_GUIDE.md)** - Complete feature documentation
@@ -328,8 +330,7 @@ See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for solutions.
 
 - **Documentation** - See `/docs` directory
 - **GitHub Issues** - Report bugs or request features
-- **Email** - support@omnecor.ai
-- **Discord** - Join our community server
+- **Email** - th3artistunknown@gmail.com
 
 ## 📄 License
 
@@ -358,7 +359,7 @@ Perception builds on the shoulders of giants:
 
 ---
 
-**Built with ❤️ for the AI community**
+**Building with ❤️ for the AI community**
 
 Omnecor: Where your ideas meet AI. 🧠✨
 
