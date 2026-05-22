@@ -76,13 +76,13 @@
   - [x] Training progress monitoring
   - [ ] Neural Map Visualizer integration (planned)
 - [x] Implement AI-Assisted 3D Modeler launcher
-  - [ ] Blender CLI integration (requires backend)
-  - [ ] Blender API integration (requires backend)
-  - [ ] Real-time preview sync (requires backend)
+  - [x] Blender CLI integration (backend: specializedModules.ts → blender_bridge.py)
+  - [x] Blender API integration (backend: child_process.spawn with JSON stdout)
+  - [ ] Real-time preview sync (requires WebSocket wiring to UI)
 - [x] Implement AI-Assisted PCB Designer launcher
-  - [ ] KiCad CLI integration (requires backend)
-  - [ ] KiCad API integration (requires backend)
-  - [ ] Real-time schematic sync (requires backend)
+  - [x] KiCad CLI integration (backend: specializedModules.ts → kicad_bridge.py)
+  - [x] KiCad API integration (backend: DRC, STEP export, BOM export)
+  - [ ] Real-time schematic sync (requires WebSocket wiring to UI)
 
 ## Third-Party Integrations Hub
 - [x] Design integrations UI with account linking
@@ -117,16 +117,25 @@
 - [x] Add application preferences (theme, language, etc.)
 
 ## Backend Services
-- [ ] Implement file system watcher for Neural Node-Tree
+- [x] Implement file system watcher for Neural Node-Tree (Phase 2: FileSystemWatcherService)
 - [ ] Build model management service
 - [ ] Implement AI provider abstraction layer
-- [ ] Build context manager service
-- [ ] Implement action hash tracking service
-- [ ] Build knowledge base indexing service
-- [ ] Implement file security scanning service
+- [x] Build context manager service (Phase 2: ProcessManagerService + context handling)
+- [x] Implement action hash tracking service (Phase 2: HashTrackerService)
+- [x] Build knowledge base indexing service (VectorDBService + MemoryArchitectService)
+- [x] Implement file security scanning service (Phase 2: SecurityService)
 - [ ] Build integration management service
-- [ ] Implement local encryption service
+- [x] Implement local encryption service (Phase 2: SecurityService — AES-256-GCM)
 - [ ] Build model marketplace sync service
+
+## Specialized Module Bridges (Phase 3/4/5/7)
+- [x] Blender Bridge — headless render, glTF export, script execution
+- [x] KiCad Bridge — DRC, STEP export, BOM export
+- [x] RVC Voice Conversion — FastAPI proxy with model caching
+- [x] ESPTool Bridge — firmware flashing with progress streaming
+- [x] VectorDB + MemoryArchitect — per-project semantic search & knowledge base
+- [x] tRPC router integration (specializedModules + knowledgeBase routers)
+- [x] Registered in appRouter (server/routers.ts)
 
 ## Testing & Quality Assurance
 - [ ] Write unit tests for hash generation and loop detection
