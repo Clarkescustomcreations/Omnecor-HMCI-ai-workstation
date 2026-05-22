@@ -3,7 +3,7 @@
 > **Operational Memory Never Escapes Context Overview Remains.**
 
 Last updated: 2026-05-22
-Architecture Version: 2.1.0 (Unified)
+Architecture Version: 2.2.0 (Unified + Full Module Integration)
 
 ---
 
@@ -31,13 +31,14 @@ The split-brain backend conflict introduced by PR #1 has been fully resolved. Th
 |-------|-------------|--------|------------|
 | Phase 1 | Frontend UI & Design System | **COMPLETE** | 100% |
 | Phase 2 | Core Backend Services (File System, AI Provider, Context, Memory Architect) | **COMPLETE** | 100% |
-| Phase 3 | Blender Bridge (3D Rendering & Sync) | **Integration Complete** | 100% |
-| Phase 4 | KiCad Bridge (PCB Design & DRC) | **Integration Complete** | 100% |
-| Phase 5 | RVC Voice Conversion (FastAPI Microservice) | **Integration Complete** | 100% |
+| Phase 3 | Blender Bridge (3D Rendering & Sync) | **FULLY INTEGRATED** | 100% |
+| Phase 4 | KiCad Bridge (PCB Design & DRC) | **FULLY INTEGRATED** | 100% |
+| Phase 5 | RVC Voice Conversion (FastAPI Microservice) | **FULLY INTEGRATED** | 100% |
 | Phase 6 | Neural Node-Tree Real-Time Wiring | In Progress | 60% |
-| Phase 7 | ESPTool Bridge (IoT Firmware Flashing) | **Integration Complete** | 100% |
+| Phase 7 | ESPTool Bridge (IoT Firmware Flashing) | **FULLY INTEGRATED** | 100% |
 | Phase 8 | Deployment & Packaging | Scaffolded | 40% |
 | Architecture | Unified backend (PR #1 conflict resolved) | **RESOLVED** | 100% |
+| Module Integration | Full tRPC procedure logic + WebSocket streaming | **COMPLETE** | 100% |
 
 ---
 
@@ -94,42 +95,49 @@ All core backend services are merged and stable:
 
 ---
 
-## Phase 3: Blender Bridge — Integration Complete
+## Phase 3: Blender Bridge — FULLY INTEGRATED
 
 **Files:**
 - `server/python_bridges/blender_bridge.py` — Blender background-mode bridge
 - `server/routers/specializedModules.ts` — tRPC procedures: `blenderRender`, `blenderExportGltf`, `blenderRunScript`
 - `server/phase2/routers/hardwareRouter.ts` — Full Blender tRPC: `blenderStatus`, `blenderExecuteScript`, `blenderExport`
+- `server/phase2/bridges/BlenderBridge.ts` — Typed bridge singleton
 
 **Architecture:**
-- Blender is spawned via `child_process.spawn` in headless mode (`-b`)
+- Blender is spawned via `ProcessManagerService.spawn()` with type `"blender"`
+- Returns `jobId` for async tracking — progress streamed via WebSocket `hardware:{jobId}`
 - Custom args passed after `--` separator per Blender CLI convention
 - JSON stdout parsed line-by-line for structured results
-- 120-second default timeout with SIGTERM → SIGKILL escalation
+- 10-minute timeout for renders, 5-minute for exports
 - Security: Only `.py` scripts allowed for `run_script` action
+- `.blend` file existence validated before spawn
 
 ---
 
-## Phase 4: KiCad Bridge — Integration Complete
+## Phase 4: KiCad Bridge — FULLY INTEGRATED
 
 **Files:**
 - `server/python_bridges/kicad_bridge.py` — KiCad CLI wrapper
 - `server/routers/specializedModules.ts` — tRPC procedures: `kicadAction`, `kicadDrc`, `kicadExportStep`, `kicadExportBom`
 - `server/phase2/routers/hardwareRouter.ts` — Full KiCad tRPC: `kicadStatus`, `kicadExportSchematic`, `kicadExportGerbers`, `kicadRunDRC`, `kicadRunERC`, `kicadExportSTEP`
+- `server/phase2/bridges/KiCadBridge.ts` — Typed bridge singleton
 
 **Architecture:**
+- Synchronous operations via `spawnSyncBridge()` — KiCad CLI completes in seconds
 - Spawns `python3 kicad_bridge.py` with `--action` and `--project_path` args
 - Parses DRC errors from combined stdout/stderr
 - Returns structured JSON with status, errors array, and output file paths
+- 2-minute timeout with SIGTERM → SIGKILL escalation
+- File existence validated before spawn
 - Supports: DRC check, ERC check, STEP export (3D), BOM export (CSV), Gerber export
 
 ---
 
-## Phase 5: RVC Voice Conversion — Integration Complete
+## Phase 5: RVC Voice Conversion — FULLY INTEGRATED
 
 **Files:**
 - `server/python_bridges/rvc_server.py` — FastAPI RVC microservice (port 8003)
-- `server/routers/specializedModules.ts` — tRPC procedures: `rvcHealth`, `rvcConvert`
+- `server/routers/specializedModules.ts` — tRPC procedures: `rvcHealth`, `rvcConvert`, `rvcListModels`
 
 **Architecture:**
 - RVC runs as a separate FastAPI process (not spawned per-request)
@@ -138,22 +146,27 @@ All core backend services are merged and stable:
 - Converted audio saved to `~/.omnecor/rvc_output/` and path returned
 - 5-minute timeout for large audio conversions
 - Health check endpoint for UI status indicators
+- `rvcListModels` scans directories recursively for `.pth` files (max 4 levels)
+- Model path validation (must be `.pth`) before sending to RVC server
 
 ---
 
-## Phase 7: ESPTool Bridge — Integration Complete
+## Phase 7: ESPTool Bridge — FULLY INTEGRATED
 
 **Files:**
 - `server/python_bridges/esptool_bridge.py` — esptool.py CLI wrapper
 - `server/routers/specializedModules.ts` — tRPC procedures: `espFlash`, `espDetectPorts`
 - `server/phase2/routers/hardwareRouter.ts` — Full ESP tRPC: `espStatus`, `espDetectPorts`, `espChipInfo`, `espFlash`, `espEraseFlash`
+- `server/phase2/bridges/ESPToolBridge.ts` — Typed bridge singleton
 
 **Architecture:**
+- ESP flash uses `ProcessManagerService.spawn()` with type `"esp_flash"`
+- Returns `jobId` for async tracking — progress streamed via WebSocket `hardware:{jobId}`
 - Spawns `python3 esptool_bridge.py` with `--port`, `--baud`, `--firmware_path`
-- Real-time JSON line streaming of flash progress
+- Real-time JSON line streaming of flash progress (parsed by ProcessManagerService)
 - 3-minute timeout for firmware flashing operations
-- Serial port detection via `python3 -m serial.tools.list_ports`
-- Firmware file existence validated before spawn
+- Serial port detection via `python3 -m serial.tools.list_ports -v`
+- Firmware file existence and port format (`/dev/*`) validated before spawn
 
 ---
 
@@ -177,6 +190,11 @@ All core backend services are merged and stable:
 
 ## TypeScript Build Status
 
+```
+$ npx tsc --noEmit
+EXIT: 0  (zero errors)
+```
+
 | Scope | Errors | Notes |
 |-------|--------|-------|
 | `server/_core/context.ts` | 0 | Unified context |
@@ -184,9 +202,10 @@ All core backend services are merged and stable:
 | `server/routers.ts` | 0 | Unified appRouter |
 | `server/phase2/routers/*.ts` | 0 | All migrated to _core/trpc |
 | `server/phase2/services/*.ts` | 0 | All deps installed |
-| `server/phase2/websocket/*.ts` | 0 | Clean |
-| `server/routers/specializedModules.ts` | 0 | Clean |
-| `server/routers/knowledgeBase.ts` | 0 | Clean |
+| `server/phase2/websocket/*.ts` | 0 | Updated hardware channel routing |
+| `server/phase2/bridges/*.ts` | 0 | All bridge singletons |
+| `server/routers/specializedModules.ts` | 0 | Full integration logic |
+| `server/routers/knowledgeBase.ts` | 0 | VectorDB + MemoryArchitect |
 | **TOTAL** | **0** | **Full codebase compiles cleanly** |
 
 ---
@@ -206,6 +225,27 @@ All core backend services are merged and stable:
 ## tsconfig.json Changes
 
 - Added `"target": "ES2022"` for proper Map/Set iterator support
+
+---
+
+## WebSocket Channel Architecture
+
+The WebSocket server now properly routes events based on process type:
+
+| Channel Pattern | Event Types | Source |
+|----------------|-------------|--------|
+| `files:{projectId}` | `fileEvent` | FileSystemWatcherService |
+| `training:{jobId}` | `trainingProgress`, `lifecycle` | ProcessManagerService (type: lora_training) |
+| `training:all` | `trainingProgress`, `lifecycle` | All training jobs |
+| `hardware:{jobId}` | `trainingProgress`, `lifecycle` | ProcessManagerService (type: blender, esp_flash) |
+| `hardware:all` | `trainingProgress`, `lifecycle` | All hardware + training lifecycle |
+| `agent:loops` | `loopDetected` | HashTrackerService |
+
+**Frontend Integration:**
+1. Call `modules.blenderRender` → receive `{ jobId, wsChannel }` in response
+2. Subscribe to WebSocket channel `hardware:{jobId}` for real-time progress
+3. Receive `trainingProgress` events with parsed JSON from Python stdout
+4. Receive `lifecycle` event with `state: "completed"` or `state: "failed"` when done
 
 ---
 

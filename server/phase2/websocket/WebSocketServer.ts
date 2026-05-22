@@ -236,47 +236,90 @@ export class OmnecorWebSocketServer {
 
     // --- Training Progress Events ---
     this.processManager.on("progress", (event: ProcessProgressEvent) => {
-      const channel = `training:${event.jobId}`;
-      this.broadcastToChannel(channel, {
-        type: "trainingProgress",
-        channel,
-        data: event,
-        timestamp: event.timestamp,
-      });
+      // Route progress to the correct channel based on process type
+      if (event.type === "blender" || event.type === "esp_flash") {
+        // Hardware jobs → hardware:{jobId} channel
+        const hwChannel = `hardware:${event.jobId}`;
+        this.broadcastToChannel(hwChannel, {
+          type: "trainingProgress",  // reuse type for consistency; frontend filters by channel
+          channel: hwChannel,
+          data: event,
+          timestamp: event.timestamp,
+        });
 
-      // Also broadcast to the general "training:all" channel for dashboard
-      this.broadcastToChannel("training:all", {
-        type: "trainingProgress",
-        channel: "training:all",
-        data: event,
-        timestamp: event.timestamp,
-      });
+        // Also broadcast to "hardware:all" for the global hardware dashboard
+        this.broadcastToChannel("hardware:all", {
+          type: "trainingProgress",
+          channel: "hardware:all",
+          data: event,
+          timestamp: event.timestamp,
+        });
+      } else {
+        // Training jobs → training:{jobId} channel
+        const channel = `training:${event.jobId}`;
+        this.broadcastToChannel(channel, {
+          type: "trainingProgress",
+          channel,
+          data: event,
+          timestamp: event.timestamp,
+        });
+
+        // Also broadcast to the general "training:all" channel for dashboard
+        this.broadcastToChannel("training:all", {
+          type: "trainingProgress",
+          channel: "training:all",
+          data: event,
+          timestamp: event.timestamp,
+        });
+      }
     });
 
     // --- Process Lifecycle Events ---
     this.processManager.on("lifecycle", (event: ProcessLifecycleEvent) => {
-      const channel = `training:${event.jobId}`;
-      this.broadcastToChannel(channel, {
-        type: "lifecycle",
-        channel,
-        data: event,
-        timestamp: event.timestamp,
-      });
+      if (event.type === "blender" || event.type === "esp_flash") {
+        // Hardware lifecycle → hardware:{jobId} + hardware:all
+        const hwChannel = `hardware:${event.jobId}`;
+        this.broadcastToChannel(hwChannel, {
+          type: "lifecycle",
+          channel: hwChannel,
+          data: event,
+          timestamp: event.timestamp,
+        });
 
-      // Also broadcast to general channels
-      this.broadcastToChannel("training:all", {
-        type: "lifecycle",
-        channel: "training:all",
-        data: event,
-        timestamp: event.timestamp,
-      });
+        this.broadcastToChannel("hardware:all", {
+          type: "lifecycle",
+          channel: "hardware:all",
+          data: event,
+          timestamp: event.timestamp,
+        });
+      } else {
+        // Training lifecycle → training:{jobId} + training:all
+        const channel = `training:${event.jobId}`;
+        this.broadcastToChannel(channel, {
+          type: "lifecycle",
+          channel,
+          data: event,
+          timestamp: event.timestamp,
+        });
 
-      this.broadcastToChannel("hardware:all", {
-        type: "lifecycle",
-        channel: "hardware:all",
-        data: event,
-        timestamp: event.timestamp,
-      });
+        this.broadcastToChannel("training:all", {
+          type: "lifecycle",
+          channel: "training:all",
+          data: event,
+          timestamp: event.timestamp,
+        });
+      }
+
+      // Always broadcast lifecycle to hardware:all for global monitoring
+      // (training jobs may also be of interest to the global dashboard)
+      if (event.type !== "blender" && event.type !== "esp_flash") {
+        this.broadcastToChannel("hardware:all", {
+          type: "lifecycle",
+          channel: "hardware:all",
+          data: event,
+          timestamp: event.timestamp,
+        });
+      }
     });
 
     // --- Loop Detection Alerts ---
