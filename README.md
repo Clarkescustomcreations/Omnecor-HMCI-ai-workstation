@@ -17,7 +17,7 @@ Why pay for APIs when you already pay for web subscriptions? Omnecor securely co
 Never wake up to a massive API bill again. Assign a strict prepaid budget to any project. The Valet tracks every fraction of a cent, generates locked virtual credit cards for ephemeral cloud compute (like RunPod), and automatically downgrades to local models if the budget runs low.
 
 ### 🧠 Personalized Memory Context Maps
-Standard chat logs are dead. Perception visualizes your workflow by generating dynamic, interactive neural networks for your data. Build custom, isolated "brains" for every individual project. Watch in real-time as your AI agents map out files, connect research documents, and build semantic memory contexts that you can visually navigate.
+Standard chat logs are dead. Omnecor visualizes your workflow by generating dynamic, interactive neural networks for your data. Build custom, isolated "brains" for every individual project. Watch in real-time as your AI agents map out files, connect research documents, and build semantic memory contexts that you can visually navigate.
 
 ### 🤖 The Multi-Modal Workforce
 Spin up specialized autonomous agents, assign them skills, and let them collaborate:
@@ -38,7 +38,7 @@ Omnecor adapts to your hardware, offering three distinct execution environments:
 
 **Omnecor** is a comprehensive, local-first AI workbench for Linux that combines the power of multiple AI models, project management, and specialized tools into a single, elegant interface.
 
-Omnecor is designed to be the "Frontal Lobe" of your AI workflow—a unified orchestrator that routes your ideas through any available AI model or tool. Whether you're working with local models for privacy, cloud APIs for power, or specialized tools like Blender and KiCad, CORTEX brings everything together seamlessly.
+Omnecor is designed to be the "Frontal Cortex" of your AI workflow—a unified orchestrator that routes your ideas through any available AI model or tool. Whether you're working with local models for privacy, cloud APIs for power, or specialized tools like Blender and KiCad, Omnecor brings everything together seamlessly.
 
 ### Key Technical Features
 
@@ -67,8 +67,6 @@ Omnecor is designed to be the "Frontal Lobe" of your AI workflow—a unified orc
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-repo/cortex-ai-workstation.git
-cd cortex-ai-workstation
 
 # Install dependencies
 npm install
