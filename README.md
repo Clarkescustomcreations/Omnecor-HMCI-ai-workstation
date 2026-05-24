@@ -55,7 +55,7 @@ Omnecor is designed to be the "Frontal Cortex" of your AI workflow—a unified o
 ## 🚀 Quick Start
 **Notice Currrently Omnecor is an open source work in progress and not fully functional please contact for more information or to join the development team 
   Contact info available on Clarkescustomcreations profile page
-
+## Omnecor DEMO: https://cortexai-7n9bpams.manus.space (nonfunctional prototype) ##
 ### Prerequisites
 
 - Linux (Debian 12, Ubuntu 20.04+)
