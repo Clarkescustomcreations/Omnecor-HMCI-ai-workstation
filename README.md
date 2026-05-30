@@ -1,4 +1,4 @@
-# 👁️ Omnecor 
+# 👁️ Omnecor-Prototype 
 > **Context-Aware AI Infrastructure.**
 
 Stop bouncing between fragmented tabs, managing a dozen different subscriptions, and losing your context. 
